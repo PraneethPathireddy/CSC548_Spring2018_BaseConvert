@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.Button;
 
 public class BaseToDecimal extends AppCompatActivity
 {
@@ -20,24 +22,85 @@ public class BaseToDecimal extends AppCompatActivity
         this.inputET = (EditText)this.findViewById(R.id.inputET);
         this.answerTV = (TextView)this.findViewById(R.id.answerTV);
     }
-
-    public void base2ButtonPressed(View v)
+    private int mapCharToNum(char ch)
     {
-        this.answerTV.setText("Base 2");
+        if (ch >= '0' && ch <= '9')
+            return ch - '0';
+
+        if (ch >= 'A' && ch <= 'Z')
+        {
+            return ch - 'A' + 10;
+        }
+        return ch - 'a' + 10;
     }
 
-    public void base8ButtonPressed(View v)
+    private int convertBaseToDec(int base, String numStr)
     {
-        this.answerTV.setText("Base 8");
+        int len = numStr.length();
+
+        int val = 0;
+        int exp = 0;
+
+        for (int i = len - 1; i >=0; i--)
+        {
+            char ch = numStr.charAt(i);
+
+            val = val + (int) java.lang.Math.pow(base, exp) * mapCharToNum(ch);
+
+            exp++;
+        }
+
+        return val;
     }
 
-    public void base10ButtonPressed(View v)
+    private boolean isValidNum(int base, String numStr)
     {
-        this.answerTV.setText("Base 10");
-    }
+        int len = numStr.length();
 
-    public void base16ButtonPressed(View v)
+        for (int i = 0; i < len; i++)
+        {
+            char ch = numStr.charAt(i);
+
+            if (!(ch >= '0' && ch <= '9') &&
+                    !(ch >= 'A' && ch <= 'Z') &&
+                    !(ch >= 'a' && ch <= 'z'))
+            {
+                return false;
+            }
+
+            if (mapCharToNum(ch) >= base)
+                return false;
+        }
+        return true;
+    }
+    public void baseButtonPressed(View v)
+
     {
-        this.answerTV.setText("Base 16");
+        Button button = (Button)v;
+
+        if (this.inputET.getText().toString().equals(""))
+        {
+            answerTV.setText("");
+            Toast.makeText(BaseToDecimal.this, "Enter a number to convert",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String numStr = inputET.getText().toString();
+
+        int base = Integer.parseInt(button.getText().toString());
+
+        if (!isValidNum(base, numStr))
+        {
+            answerTV.setText("");
+            Toast.makeText(BaseToDecimal.this, "Invalid number for selected base",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        int decVal = convertBaseToDec(base, numStr);
+
+        answerTV.setText("" + decVal);
+
     }
 }

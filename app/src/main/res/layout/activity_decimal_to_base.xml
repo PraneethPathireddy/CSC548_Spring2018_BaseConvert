@@ -38,21 +38,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:onClick="base2ButtonPressed"
+                android:onClick="baseButtonPressed"
                 android:text="2" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:onClick="base8ButtonPressed"
+                android:onClick="baseButtonPressed"
                 android:text="8" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:onClick="base10ButtonPressed"
+                android:onClick="baseButtonPressed"
                 android:text="10" />
 
             <Button
@@ -60,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:onClick="base16ButtonPressed"
+                android:onClick="baseButtonPressed"
                 android:text="16" />
         </LinearLayout>
 
@@ -68,9 +68,9 @@
             android:id="@+id/answerTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:hint="Base Number"
             android:textAlignment="center"
             android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textStyle="normal" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
